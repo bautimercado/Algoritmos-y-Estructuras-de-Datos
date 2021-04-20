@@ -82,29 +82,141 @@ public class ArbolBinario<T> {
 	}
 
 	
-
+	//recorrido por niveles
 	public boolean esLleno() {
-		return false;
+		ArbolBinario<T> a = null;
+		ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>> ();		
+		cola.encolar(this);
+		cola.encolar(null);
+		boolean lleno = true;
+		int nodos_por_nivel = 0;
+		int nivel = 0;
+		
+		while ((!cola.esVacia()) && (lleno)) {
+			a = cola.desencolar();
+			if (a != null) {
+				if (a.tieneHijoIzquierdo()) {
+					nodos_por_nivel++;
+					cola.encolar(a.getHijoIzquierdo());
+				}
+				if (a.tieneHijoDerecho()) {
+					nodos_por_nivel++;
+					cola.encolar(a.getHijoDerecho());
+				}
+			} else if (!cola.esVacia()) {
+				if (nodos_por_nivel == Math.pow(2, ++nivel)) {
+					cola.encolar(null);
+					nodos_por_nivel = 0;
+				}
+				else
+					lleno = false;
+			}
+		}
+		return lleno;
 	}
 
-	 boolean esCompleto() {
-		return false;
+	//falta desarrollar. . .
+	public boolean esCompleto() {
+		 ArbolBinario<T> a = null;
+		 ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
+		 
+		 cola.encolar(this);
+		 cola.encolar(null);
+		 
+		 boolean completo = true;
+		 int nodos_por_nivel = 0;
+		 int aux = this.altura();
+		 int nivel = 0;
+		 
+		 completo = llenoParaCompleto(aux - 1);
+		 while ((!cola.esVacia()) && (completo)) {
+			a = cola.desencolar();
+			if (nivel == aux) {
+				
+			}
+		 }
+		 
+		 return completo;
+	}
+	
+	private boolean llenoParaCompleto (int unaMenos) {
+		ArbolBinario<T> a = null;
+		ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>> ();		
+		cola.encolar(this);
+		cola.encolar(null);
+		boolean lleno = true;
+		int nodos_por_nivel = 0;
+		int nivel = 0;
+		
+		while ((!cola.esVacia()) && (lleno) && (nivel <= unaMenos)) {
+			a = cola.desencolar();
+			if (a != null) {
+				if (a.tieneHijoIzquierdo()) {
+					nodos_por_nivel++;
+					cola.encolar(a.getHijoIzquierdo());
+				}
+				if (a.tieneHijoDerecho()) {
+					nodos_por_nivel++;
+					cola.encolar(a.getHijoDerecho());
+				}
+			} else if (!cola.esVacia()) {
+				if (nodos_por_nivel == Math.pow(2, ++nivel)) {
+					cola.encolar(null);
+					nodos_por_nivel = 0;
+				}
+				else
+					lleno = false;
+			}
+		}
+		return lleno;
 	}
 
 	
 	// imprime el árbol en preorden  
 	public void printPreorden() {
-		
+		if (!this.esVacio()) {
+			System.out.println(this.getDato());
+			
+			if (this.tieneHijoIzquierdo())
+				this.getHijoIzquierdo().printPreorden();
+			if (this.tieneHijoDerecho())
+				this.getHijoDerecho().printPreorden();
+		}
 	}
 
 	// imprime el �rbol en postorden
 	public void printPostorden() {
-		
+		if (!this.esVacio()) {
+			if (this.tieneHijoIzquierdo())
+				this.getHijoIzquierdo().printPostorden();
+			if (this.tieneHijoDerecho())
+				this.getHijoDerecho().printPostorden();
+			
+			System.out.println(this.getDato());
+		}
 	}
 
 
 	public void recorridoPorNiveles() {
+		ArbolBinario<T> a = null;
+		ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
+		cola.encolar(this);
+		cola.encolar(null);
 		
+		while (!cola.esVacia()) {
+			a = cola.desencolar();
+			
+			if (a != null) {
+				System.out.print(a.getDato());
+				if (a.tieneHijoIzquierdo())
+					cola.encolar(a.getHijoIzquierdo());
+				if (a.tieneHijoDerecho())
+					cola.encolar(a.getHijoDerecho());
+			} else if (!cola.esVacia()) {
+				cola.encolar(null);
+				System.out.println();
+			}
+		}
 	}
 
 	

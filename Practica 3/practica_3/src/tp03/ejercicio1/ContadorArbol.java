@@ -8,14 +8,16 @@ public class ContadorArbol {
 	public ContadorArbol (ArbolBinario<Integer> arbol) {
 		this.arbol = arbol;
 	}
-	
-	public ListaEnlazadaGenerica<Integer> contarParesInOrden () {
+
+	//metodo de la firma
+	public ListaEnlazadaGenerica<Integer> numerosParesInOrden () {
 		ListaEnlazadaGenerica<Integer> lista = null;
 		recorridoInOrden(arbol, lista);
 		
 		return lista;
 	}
 
+	//metodo privado usado por el metodo numerosParesInOrden
 	private void recorridoInOrden(ArbolBinario<Integer> a, ListaEnlazadaGenerica<Integer> lista) {
 		if (a.tieneHijoIzquierdo()) {
 			recorridoInOrden(a.getHijoIzquierdo(), lista);
@@ -28,13 +30,15 @@ public class ContadorArbol {
 		}
 	}
 	
-	public ListaEnlazadaGenerica<Integer> contarParesPostOrden (){
+	//metodo de la firma
+	public ListaEnlazadaGenerica<Integer> numerosParesPostOrden (){
 		ListaEnlazadaGenerica<Integer> lista = null;
 		recorridoPostOrden(arbol, lista);
 		
 		return lista;
 	}
 
+	//metodo privado usado por el metodo de numerosParesPostOrden
 	private void recorridoPostOrden (ArbolBinario<Integer> a, ListaEnlazadaGenerica<Integer> lista){
 		if (a.tieneHijoIzquierdo()) {
 			recorridoPostOrden(a.getHijoIzquierdo(), lista);

@@ -1,7 +1,5 @@
 package tp03.ejercicio1;
 
-import tp02.ejercicio2.*;
-
 public class RedBinariaLlena {
 	//asumo que los segundos de cada nodo son nros enteros
 	private ArbolBinario<Integer> redBinaria;
@@ -36,4 +34,5 @@ public class RedBinariaLlena {
 		} else
 			return 0;
 	}
+
 }
