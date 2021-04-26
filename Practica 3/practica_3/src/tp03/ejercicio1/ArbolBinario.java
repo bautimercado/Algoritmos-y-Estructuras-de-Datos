@@ -121,54 +121,26 @@ public class ArbolBinario<T> {
 		 ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
 		 
 		 cola.encolar(this);
-		 cola.encolar(null);
 		 
-		 boolean completo = true;
-		 int nodos_por_nivel = 0;
-		 int aux = this.altura();
-		 int nivel = 0;
-		 
-		 completo = llenoParaCompleto(aux - 1);
-		 while ((!cola.esVacia()) && (completo)) {
-			a = cola.desencolar();
-			if (nivel == aux) {
-				
-			}
+		 boolean completo = false;
+		 while (!cola.esVacia()) {
+			 a = cola.desencolar();
+			 
+			 if (a.tieneHijoIzquierdo()) {
+				 if (completo)
+					 return false;
+				 cola.encolar(a.getHijoIzquierdo());
+			 } else
+				 completo = true;
+			 if (a.tieneHijoDerecho()) {
+				 if (completo)
+					 return false;
+				 cola.encolar(a.getHijoDerecho());
+			 } else
+				 completo = true;
 		 }
 		 
-		 return completo;
-	}
-	
-	private boolean llenoParaCompleto (int unaMenos) {
-		ArbolBinario<T> a = null;
-		ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>> ();		
-		cola.encolar(this);
-		cola.encolar(null);
-		boolean lleno = true;
-		int nodos_por_nivel = 0;
-		int nivel = 0;
-		
-		while ((!cola.esVacia()) && (lleno) && (nivel <= unaMenos)) {
-			a = cola.desencolar();
-			if (a != null) {
-				if (a.tieneHijoIzquierdo()) {
-					nodos_por_nivel++;
-					cola.encolar(a.getHijoIzquierdo());
-				}
-				if (a.tieneHijoDerecho()) {
-					nodos_por_nivel++;
-					cola.encolar(a.getHijoDerecho());
-				}
-			} else if (!cola.esVacia()) {
-				if (nodos_por_nivel == Math.pow(2, ++nivel)) {
-					cola.encolar(null);
-					nodos_por_nivel = 0;
-				}
-				else
-					lleno = false;
-			}
-		}
-		return lleno;
+		 return true;
 	}
 
 	
